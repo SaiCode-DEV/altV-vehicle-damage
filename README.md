@@ -26,4 +26,6 @@ You can easily exclude any Vehicle Classes in Air Movement Control and Damage.
 
 - [ ] More/Better Crash detection
 - [ ] Engine Damage with Smoke
+- [ ] Offroad Vehicles can resist more punishment
+- [ ] Going offroad with wrong vehicle can also cause damage
 - [ ] Exlude certain Objects like small signs and Traffic Cones
