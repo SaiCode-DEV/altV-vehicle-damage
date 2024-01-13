@@ -100,7 +100,7 @@ function checkVehicleControl(vehicle) {
   if (!vehicle || allowAirControlClass.includes(natives.getVehicleClass(vehicle))) return
 
   everyTick = alt.everyTick(() => {
-    if (!vehicle) alt.clearEveryTick(everyTick)
+    if (!alt.Player.local.vehicle) alt.clearEveryTick(everyTick)
     if (natives.isEntityInAir(vehicle) || natives.isEntityUpsidedown(vehicle)) {
       natives.disableControlAction(0, 59, true) //INPUT_VEH_MOVE_LR
       natives.disableControlAction(0, 60, true) //INPUT_VEH_MOVE_UD
