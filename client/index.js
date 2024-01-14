@@ -16,7 +16,7 @@ function breakWheel() {
   if (!wheels.includes(true)) return
   // get the wheel positions
   const veh = alt.Player.local.vehicle
-  if(excludeWheelDamageClasses.includes(natives.getVehicleClass(veh))) return
+  if (excludeWheelDamageClasses.includes(natives.getVehicleClass(veh))) return
   let obj = false
   for (const prop of ExcludeCollisionProps) {
     if (
@@ -100,7 +100,10 @@ function checkVehicleControl(vehicle) {
   if (!vehicle || allowAirControlClass.includes(natives.getVehicleClass(vehicle))) return
 
   everyTick = alt.everyTick(() => {
-    if (!alt.Player.local.vehicle) alt.clearEveryTick(everyTick)
+    if (!vehicle) {
+      alt.clearEveryTick(everyTick)
+      everyTick = null
+    }
     if (natives.isEntityInAir(vehicle) || natives.isEntityUpsidedown(vehicle)) {
       natives.disableControlAction(0, 59, true) //INPUT_VEH_MOVE_LR
       natives.disableControlAction(0, 60, true) //INPUT_VEH_MOVE_UD
@@ -118,8 +121,14 @@ alt.on('enteredVehicle', (vehicle, seat) => {
 })
 
 alt.on('leftVehicle', (vehicle, seat) => {
-  if (interval) alt.clearInterval(interval)
-  if (everyTick) alt.clearEveryTick(everyTick)
+  if (interval) {
+    alt.clearInterval(interval)
+    interval = null
+  }
+  if (everyTick) {
+    alt.clearEveryTick(everyTick)
+    everyTick = null
+  }
 })
 
 alt.on('resourceStart', () => {
@@ -130,6 +139,12 @@ alt.on('resourceStart', () => {
 })
 
 alt.on('resourceStop', () => {
-  if (interval) alt.clearInterval(interval)
-  if (everyTick) alt.clearEveryTick(everyTick)
+  if (interval) {
+    alt.clearInterval(interval)
+    interval = null
+  }
+  if (everyTick) {
+    alt.clearEveryTick(everyTick)
+    everyTick = null
+  }
 })
